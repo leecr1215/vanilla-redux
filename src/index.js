@@ -1,24 +1,14 @@
+import { createStore } from "redux";
+
 const add = document.getElementById("add");
 const minus = document.getElementById("minus");
 const number = document.querySelector("span");
 
-let count = 0;
-
-//number.innerText = count;
-
-const updateText = () => {
-  number.innerText = count;
+// reducer는 무조건 함수여야함
+const CountModifier = (count = 0) => {
+  return count;
 };
 
-const handleAdd = () => {
-  count = count + 1;
-  updateText();
-};
+const CountStore = createStore(CountModifier); // 데이터 저장하는 곳
 
-const handleMinus = () => {
-  count = count - 1;
-  updateText();
-};
-
-add.addEventListener("click", handleAdd);
-minus.addEventListener("click", handleMinus);
+console.log(CountStore.getState());
