@@ -4,9 +4,10 @@ const add = document.getElementById("add");
 const minus = document.getElementById("minus");
 const number = document.querySelector("span");
 
+number.innerText = 0;
+
 // reducer는 무조건 함수여야함
 const CountModifier = (count = 0, action) => {
-  console.log(count, action);
   if (action.type === "ADD") {
     return count + 1;
   } else if (action.type === "MINUS") {
@@ -15,10 +16,21 @@ const CountModifier = (count = 0, action) => {
   return count;
 };
 
-const CountStore = createStore(CountModifier); // 데이터 저장하는 곳
+const countStore = createStore(CountModifier); // 데이터 저장하는 곳
 
-CountStore.dispatch({ type: "ADD" });
-CountStore.dispatch({ type: "ADD" });
-CountStore.dispatch({ type: "MINUS" });
+const onChange = () => {
+  number.innerText = countStore.getState();
+};
 
-console.log(CountStore.getState());
+countStore.subscribe(onChange);
+
+const handleAdd = () => {
+  countStore.dispatch({ type: "ADD" });
+};
+
+const handleMinus = () => {
+  countStore.dispatch({ type: "MINUS" });
+};
+
+add.addEventListener("click", handleAdd);
+minus.addEventListener("click", handleMinus);
