@@ -6,14 +6,20 @@ const number = document.querySelector("span");
 
 number.innerText = 0;
 
+const ADD = "ADD";
+const MINUS = "MINUS";
+
 // reducer는 무조건 함수여야함
+// currentState, action
 const CountModifier = (count = 0, action) => {
-  if (action.type === "ADD") {
-    return count + 1;
-  } else if (action.type === "MINUS") {
-    return count - 1;
+  switch (action.type) {
+    case ADD:
+      return count + 1;
+    case MINUS:
+      return count - 1;
+    default:
+      return count;
   }
-  return count;
 };
 
 const countStore = createStore(CountModifier); // 데이터 저장하는 곳
